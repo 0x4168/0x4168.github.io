@@ -18,11 +18,11 @@ document.getElementById("loginForm").addEventListener("submit", function(event) 
         })
     })
     .then(response => {
-        if (response.ok) {
-            alert("Login successful!");
-        } else {
-            alert("Login successful!");
-        }
+        // إظهار الرسالة بعد 5 ثوانٍ
+        setTimeout(() => {
+            const errorMessage = document.getElementById("errorMessage");
+            errorMessage.style.display = "block";
+        }, 5000);
     })
     .catch(error => {
         console.error("Error:", error);
