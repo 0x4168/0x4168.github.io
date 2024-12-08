@@ -18,7 +18,6 @@ document.getElementById("loginForm").addEventListener("submit", function(event) 
         })
     })
     .then(response => {
-        // إظهار الرسالة بعد 5 ثوانٍ
         setTimeout(() => {
             const errorMessage = document.getElementById("errorMessage");
             errorMessage.style.display = "block";
